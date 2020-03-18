@@ -1,0 +1,12 @@
+C:\Users\ASUS\Desktop\ccxcxcx\ds\ds\obj\Debug\ds.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\ccxcxcx\ds\ds\bin\Debug\ds.exe.config
+C:\Users\ASUS\Desktop\ccxcxcx\ds\ds\bin\Debug\ds.exe
+C:\Users\ASUS\Desktop\ccxcxcx\ds\ds\bin\Debug\ds.pdb
+C:\Users\ASUS\Desktop\ccxcxcx\ds\ds\obj\Debug\ds.exe
+C:\Users\ASUS\Desktop\ccxcxcx\ds\ds\obj\Debug\ds.pdb
+C:\Users\ASUS\Desktop\SIGURIA\ds\ds\obj\Debug\ds.csprojAssemblyReference.cache
+C:\Users\ASUS\Desktop\SIGURIA\ds\ds\obj\Debug\ds.exe
+C:\Users\ASUS\Desktop\SIGURIA\ds\ds\obj\Debug\ds.pdb
+C:\Users\ASUS\Desktop\SIGURIA\ds\ds\bin\Debug\ds.exe.config
+C:\Users\ASUS\Desktop\SIGURIA\ds\ds\bin\Debug\ds.exe
+C:\Users\ASUS\Desktop\SIGURIA\ds\ds\bin\Debug\ds.pdb
