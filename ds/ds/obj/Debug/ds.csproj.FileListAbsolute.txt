@@ -10,3 +10,10 @@ C:\Users\ASUS\Desktop\SIGURIA\ds\ds\obj\Debug\ds.pdb
 C:\Users\ASUS\Desktop\SIGURIA\ds\ds\bin\Debug\ds.exe.config
 C:\Users\ASUS\Desktop\SIGURIA\ds\ds\bin\Debug\ds.exe
 C:\Users\ASUS\Desktop\SIGURIA\ds\ds\bin\Debug\ds.pdb
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.csprojAssemblyReference.cache
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.csproj.CoreCompileInputs.cache
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.exe
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.pdb
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.exe.config
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.exe
+C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.pdb
