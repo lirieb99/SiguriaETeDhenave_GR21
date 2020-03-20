@@ -25,6 +25,21 @@ namespace ds
                 {
 
                 }
+                if (args[0].Equals("e"))
+                {
+                    string plaintexti = args[1];
+                    string ciphertexti = Encrypt(plaintexti);
+                    Console.WriteLine("Teksti i enkriptuar eshte:" + ciphertexti);
+
+                }
+
+                if (args[0].Equals("d"))
+                {
+                    string ciphertexti = args[1];
+                    string DecryptedTexti = Decrypt(ciphertexti);
+                    Console.WriteLine("Teksti i dekriptuar eshte:" + DecryptedTexti);
+
+                }
             }
         }
 
@@ -100,6 +115,134 @@ namespace ds
                 }
                 Console.WriteLine((char)(poz[i] + 33) + ": [" + t + spaces + "] " + perqindja + " %");
             }
+        }
+        //playfair cipher 
+        static char[,] matricaCeles =
+       {
+            {'M','O','N','A','R'},
+            {'C','H','Y','B','D'},
+            {'E','F','G','I','K'},
+            {'L','P','Q','S','T'},
+            {'U','V','W','X','Z'}
+        };
+        static string Encrypt(string plaintext)
+        {
+            if (plaintext.Length % 2 == 1)
+                plaintext = plaintext + "X";
+            plaintext = plaintext.Replace("J", "I");
+
+            StringBuilder sbCiphertext = new StringBuilder(plaintext);
+            for (int i = 0; i < sbCiphertext.Length; i = i + 2)
+            {
+                char ch1 = plaintext[i];
+                char ch2 = plaintext[i + 1];
+                if (ch1 == ch2)
+                    ch2 = 'X';
+                int X1 = 0, Y1 = 0, X2 = 0, Y2 = 0;
+                for (int rr = 0; rr < 5; rr++)
+                    for (int k = 0; k < 5; k++)
+                    {
+                        if (ch1 == matricaCeles[rr, k])
+                        {
+                            X1 = rr;
+                            Y1 = k;
+
+                        }
+                        if (ch2 == matricaCeles[rr, k])
+                        {
+                            X2 = rr;
+                            Y2 = k;
+
+                        }
+
+                    }
+                char encCh1 = ' ', encCh2 = ' ';
+
+                if (X1 == X2)
+                {
+                    encCh1 = matricaCeles[X1, (Y1 + 1) % 5];
+                    encCh2 = matricaCeles[X2, (Y2 + 1) % 5];
+
+                }
+                else if (Y1 == Y2)
+                {
+                    encCh1 = matricaCeles[(X1 + 1) % 5, Y1];
+                    encCh2 = matricaCeles[(X2 + 1) % 5, Y2];
+
+
+                }
+                else
+                {
+                    encCh1 = matricaCeles[X1, Y2];
+                    encCh2 = matricaCeles[X2, Y1];
+
+                }
+
+                sbCiphertext[i] = encCh1;
+                sbCiphertext[i + 1] = encCh2;
+
+
+
+            }
+            return sbCiphertext.ToString();
+        }
+
+        static string Decrypt(string ciphertext)
+        {
+            StringBuilder sbDecryptedText = new StringBuilder(ciphertext);
+
+            for (int i = 0; i < sbDecryptedText.Length; i += 2)
+            {
+                char encCh1 = ciphertext[i];
+                char encCh2 = ciphertext[i + 1];
+
+                int X1 = 0, Y1 = 0, X2 = 0, Y2 = 0;
+
+                for (int rr = 0; rr < 5; rr++)
+                    for (int k = 0; k < 5; k++)
+                    {
+                        if (encCh1 == matricaCeles[rr, k])
+                        {
+                            X1 = rr;
+                            Y1 = k;
+
+                        }
+
+                        if (encCh2 == matricaCeles[rr, k])
+                        {
+                            X2 = rr;
+                            Y2 = k;
+
+                        }
+
+                    }
+                char decCh1 = ' ', decCh2 = ' ';
+                if (X1 == X2)
+                {
+                    decCh1 = matricaCeles[X1, (Y1 - 1 + 5) % 5];
+                    decCh2 = matricaCeles[X2, (Y2 - 1 + 5) % 5];
+
+                }
+                else if (Y1 == Y2)
+                {
+                    decCh1 = matricaCeles[(X1 - 1 + 5) % 5, Y1];
+                    decCh2 = matricaCeles[(X2 - 1 + 5) % 5, Y2];
+
+
+                }
+                else
+                {
+                    decCh1 = matricaCeles[X1, Y2];
+                    decCh2 = matricaCeles[X2, Y1];
+
+                }
+                sbDecryptedText[i] = decCh1;
+                sbDecryptedText[i + 1] = decCh2;
+
+
+            }
+            return sbDecryptedText.ToString();
+
         }
     }
 }
