@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ds
 {
@@ -19,18 +16,29 @@ namespace ds
             {
                 if (args[1].Equals("encrypt")){
                     string keyword = args[2];
+                    keyword = keyword.ToLower();
                     string plaintexti = args[3];
+                    plaintexti = plaintexti.ToLower();
                     string ciphertexti = pfEncrypt(plaintexti, keyword);
                     Console.WriteLine("Teksti i enkriptuar eshte:" + ciphertexti);
-                 
+                   
                 }
                 else if (args[1].Equals("decrypt"))
                 {
                     string keyword = args[2];
+                    keyword = keyword.ToLower();
                     string ciphertexti = args[3];
+                    ciphertexti = ciphertexti.ToLower();
                     string DecryptedTexti = pfDecrypt(ciphertexti,keyword);
                     Console.WriteLine("Teksti i dekriptuar eshte:" + DecryptedTexti);
                 
+                }
+                else if (args[1].Equals("table"))
+                {
+                    string keyword = args[2];
+                    keyword = keyword.ToLower();
+                    GenerateKey(keyword);
+                    ShowKey();
                 }
             }
         }
@@ -114,9 +122,10 @@ namespace ds
         {
             GenerateKey(keyword);
 
+            plaintext = plaintext.Replace(" ", "");
             if (plaintext.Length % 2 == 1)
-                plaintext = plaintext + "W";
-            plaintext = plaintext.Replace("J", "I");
+                plaintext = plaintext + "w";
+            plaintext = plaintext.Replace("j", "i");
 
             StringBuilder sbCiphertext = new StringBuilder(plaintext);
             for (int i = 0; i < sbCiphertext.Length; i = i + 2)
@@ -124,7 +133,7 @@ namespace ds
                 char ch1 = plaintext[i];
                 char ch2 = plaintext[i + 1];
                 if (ch1 == ch2)
-                    ch2 = 'W';
+                    ch2 = 'w';
                 int X1 = 0, Y1 = 0, X2 = 0, Y2 = 0;
                 for (int rr = 0; rr < 5; rr++)
                     for (int k = 0; k < 5; k++)
@@ -167,8 +176,6 @@ namespace ds
 
                 sbCiphertext[i] = encCh1;
                 sbCiphertext[i + 1] = encCh2;
-
-
 
             }
             return sbCiphertext.ToString();
@@ -235,9 +242,9 @@ namespace ds
         static void GenerateKey(string keyword)
         {
             StringBuilder sbAlfabeti = new StringBuilder();
-            for (int i = 65; i < 91; i++)
+            for (int i = 97; i < 123; i++)
             {
-                if ((char)i == 'J')
+                if ((char)i == 'j')
                     continue;
 
                 sbAlfabeti.Append((char)i);
@@ -264,7 +271,6 @@ namespace ds
                     {
                         matricaCeles[i, j] = sbAlfabeti[l];
                         l++;
-
                     }
                 }
         }
