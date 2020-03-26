@@ -20,3 +20,6 @@ C:\Users\acer\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.pdb
 C:\Users\ASUS\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.csprojAssemblyReference.cache
 C:\Users\ASUS\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.exe
 C:\Users\ASUS\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\obj\Debug\ds.pdb
+C:\Users\ASUS\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.exe.config
+C:\Users\ASUS\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.exe
+C:\Users\ASUS\Documents\GitHub\SiguriaETeDhenave_GR21\ds\ds\bin\Debug\ds.pdb

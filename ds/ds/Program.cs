@@ -14,31 +14,23 @@ namespace ds
             {
                 string plaintexti = args[1];
                 Frequency(plaintexti);
-
             }
-            else if (args[0].Equals("playfairs"))
+            else if (args[0].Equals("playfair"))
             {
                 if (args[1].Equals("encrypt")){
-
+                    string keyword = args[2];
+                    string plaintexti = args[3];
+                    string ciphertexti = pfEncrypt(plaintexti, keyword);
+                    Console.WriteLine("Teksti i enkriptuar eshte:" + ciphertexti);
+                 
                 }
                 else if (args[1].Equals("decrypt"))
                 {
-
-                }
-                if (args[0].Equals("e"))
-                {
-                    string plaintexti = args[1];
-                    string ciphertexti = Encrypt(plaintexti);
-                    Console.WriteLine("Teksti i enkriptuar eshte:" + ciphertexti);
-
-                }
-
-                if (args[0].Equals("d"))
-                {
-                    string ciphertexti = args[1];
-                    string DecryptedTexti = Decrypt(ciphertexti);
+                    string keyword = args[2];
+                    string ciphertexti = args[3];
+                    string DecryptedTexti = pfDecrypt(ciphertexti,keyword);
                     Console.WriteLine("Teksti i dekriptuar eshte:" + DecryptedTexti);
-
+                
                 }
             }
         }
@@ -117,18 +109,13 @@ namespace ds
             }
         }
         //playfair cipher 
-        static char[,] matricaCeles =
-       {
-            {'M','O','N','A','R'},
-            {'C','H','Y','B','D'},
-            {'E','F','G','I','K'},
-            {'L','P','Q','S','T'},
-            {'U','V','W','X','Z'}
-        };
-        static string Encrypt(string plaintext)
+        static char[,] matricaCeles = new char[5, 5];
+        static string pfEncrypt(string plaintext,string keyword)
         {
+            GenerateKey(keyword);
+
             if (plaintext.Length % 2 == 1)
-                plaintext = plaintext + "X";
+                plaintext = plaintext + "W";
             plaintext = plaintext.Replace("J", "I");
 
             StringBuilder sbCiphertext = new StringBuilder(plaintext);
@@ -137,7 +124,7 @@ namespace ds
                 char ch1 = plaintext[i];
                 char ch2 = plaintext[i + 1];
                 if (ch1 == ch2)
-                    ch2 = 'X';
+                    ch2 = 'W';
                 int X1 = 0, Y1 = 0, X2 = 0, Y2 = 0;
                 for (int rr = 0; rr < 5; rr++)
                     for (int k = 0; k < 5; k++)
@@ -187,8 +174,9 @@ namespace ds
             return sbCiphertext.ToString();
         }
 
-        static string Decrypt(string ciphertext)
+        static string pfDecrypt(string ciphertext,string keyword)
         {
+            GenerateKey(keyword);
             StringBuilder sbDecryptedText = new StringBuilder(ciphertext);
 
             for (int i = 0; i < sbDecryptedText.Length; i += 2)
@@ -279,6 +267,9 @@ namespace ds
 
                     }
                 }
+        }
+        static void ShowKey()
+        {
             Console.WriteLine("matrica celes e formuar eshte: ");
             for (int i = 0; i < 5; i++)
             {
@@ -290,7 +281,6 @@ namespace ds
                 Console.WriteLine();
             }
         }
-
         static bool IsPresent(string keyword, int index)
         {
             char letter = keyword[index];
