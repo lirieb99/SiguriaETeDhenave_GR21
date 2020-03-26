@@ -244,5 +244,68 @@ namespace ds
             return sbDecryptedText.ToString();
 
         }
+        static void GenerateKey(string keyword)
+        {
+            StringBuilder sbAlfabeti = new StringBuilder();
+            for (int i = 65; i < 91; i++)
+            {
+                if ((char)i == 'J')
+                    continue;
+
+                sbAlfabeti.Append((char)i);
+            }
+
+            for (int i = 0; i < keyword.Length; i++)
+                sbAlfabeti = sbAlfabeti.Replace(keyword[i].ToString(), "");
+
+            int k = 0; int l = 0;
+            for (int i = 0; i < 5; i++)
+                for (int j = 0; j < 5; j++)
+
+                {
+                    while (k < keyword.Length && IsPresent(keyword, k))
+                    {
+                        k++;
+                    }
+                    if (k < keyword.Length)
+                    {
+                        matricaCeles[i, j] = keyword[k];
+                        k++;
+                    }
+                    else
+                    {
+                        matricaCeles[i, j] = sbAlfabeti[l];
+                        l++;
+
+                    }
+                }
+            Console.WriteLine("matrica celes e formuar eshte: ");
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+
+                    Console.Write(matricaCeles[i, j] + "");
+                }
+                Console.WriteLine();
+            }
+        }
+
+        static bool IsPresent(string keyword, int index)
+        {
+            char letter = keyword[index];
+            bool result = false;
+            for (int i = 0; i < index; i++)
+            {
+                if (keyword[i] == letter)
+                {
+                    result = true;
+                    break;
+
+                }
+            }
+            return result;
+
+        }
     }
 }
