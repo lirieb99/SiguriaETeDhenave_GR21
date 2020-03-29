@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 
 namespace ds
@@ -39,6 +40,23 @@ namespace ds
                     keyword = keyword.ToLower();
                     GenerateKey(keyword);
                     ShowKey();
+                }
+            }
+            else if (args[0].Equals("beale"))
+            {
+                if (args[1].Equals("encrypt"))
+                {
+                    string libri = args[2];
+                    string teksti = args[3];
+
+                    bEncrypt(libri, teksti);
+                }
+                if (args[1].Equals("decrypt"))
+                {
+                    string libri = args[2];
+                    string teksti = args[3];
+
+                    bDecrypt(libri, teksti);
                 }
             }
         }
@@ -301,6 +319,43 @@ namespace ds
                 }
             }
             return result;
+
+        }
+
+        //beale chiper
+        static void bEncrypt(string libri, string tekstiHyres)
+        {
+            StringBuilder teksti = new StringBuilder(tekstiHyres);
+            int[] tekstiEncripted = new int[teksti.Length];
+            string file = File.ReadAllText(libri).ToLower();
+
+            for (int i = 0; i < teksti.Length; i++)
+            {
+                for (int j = 0; j < file.Length; j++)
+                {
+                    if (teksti[i] == file[j])
+                    {
+                        tekstiEncripted[i] = j + 1;
+                        break;
+                    }
+                }
+            }
+            foreach (int i in tekstiEncripted)
+            {
+                Console.Write(i + " ");
+
+            }
+        }
+        static void bDecrypt(string libri, string tekstiIEnkriptuar)
+        {
+            string[] stringu = tekstiIEnkriptuar.Split(' ');
+            string file = File.ReadAllText(libri).ToLower();
+            foreach (string numri in stringu)
+            {
+                int j = Convert.ToInt32(numri) - 1;
+                Console.Write(file[j]);
+            }
+
 
         }
     }
