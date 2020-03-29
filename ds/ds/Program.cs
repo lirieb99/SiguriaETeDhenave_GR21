@@ -21,7 +21,7 @@ namespace ds
                     string plaintexti = args[3];
                     plaintexti = plaintexti.ToLower();
                     string ciphertexti = pfEncrypt(plaintexti, keyword);
-                    Console.WriteLine("Teksti i enkriptuar eshte:" + ciphertexti);
+                    Console.WriteLine(ciphertexti);
                    
                 }
                 else if (args[1].Equals("decrypt"))
@@ -31,7 +31,7 @@ namespace ds
                     string ciphertexti = args[3];
                     ciphertexti = ciphertexti.ToLower();
                     string DecryptedTexti = pfDecrypt(ciphertexti,keyword);
-                    Console.WriteLine("Teksti i dekriptuar eshte:" + DecryptedTexti);
+                    Console.WriteLine(DecryptedTexti);
                 
                 }
                 else if (args[1].Equals("table"))
@@ -202,6 +202,7 @@ namespace ds
         static string pfDecrypt(string ciphertext,string keyword)
         {
             GenerateKey(keyword);
+            ciphertext = ciphertext.Replace(" ", "");
             StringBuilder sbDecryptedText = new StringBuilder(ciphertext);
 
             for (int i = 0; i < sbDecryptedText.Length; i += 2)
