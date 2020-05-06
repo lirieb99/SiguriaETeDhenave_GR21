@@ -448,5 +448,131 @@ namespace ds
             }
 
         }
+        public static void ExportKey(string ispublic, string username, string filepath)
+        {
+            string keyPath = "";
+            if (ispublic == "private")
+            {
+                keyPath = "keys/" + username + ".xml";
+                if (!File.Exists(keyPath))
+                {
+                    Console.WriteLine("Gabim: Celesi privat " + username + " nuk ekziston");
+                    return;
+                }
+            }
+            else if (ispublic == "public")
+            {
+                keyPath = "keys/" + username + ".pub.xml";
+                if (!File.Exists(keyPath))
+                {
+                    Console.WriteLine("Gabim: Celesi publik " + username + " nuk ekziston");
+                    return;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Duhet te jet private ose public");
+            }
+            StreamReader sr = new StreamReader(keyPath);
+
+            if (filepath == "")
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.Load(keyPath);
+                doc.Save(Console.Out);
+            }
+            else
+            {
+                string line = "";
+                StreamWriter sw = new StreamWriter(filepath);
+                while ((line = sr.ReadLine()) != null)
+                {
+                    sw.Write(line);
+                }
+                sw.Close();
+            }
+
+        }
+
+        public static void ImportKey(string username, string filepath)
+        {
+            if (!DoesExists(username))
+            {
+
+                XmlDocument doc = new XmlDocument();
+                doc.Load(filepath);
+                XmlNodeList v = doc.GetElementsByTagName("P");
+                string keypath = "";
+                if (v.Count > 0)
+                {
+                    keypath = "keys/" + username + ".xml";
+                    string keypath1 = "keys/" + username + ".pub.xml";
+                    if (File.Exists(keypath))
+                    {
+                        Console.WriteLine("Gabim: Celesi " + username + " ekziston paraprakisht");
+                        return;
+                    }
+                    else
+                    {
+                        StreamReader sr = new StreamReader(filepath);
+                        StreamWriter sw = new StreamWriter(keypath);
+                        string line = "";
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            sw.Write(line);
+                        }
+                        sw.Close();
+                        Console.WriteLine("Celesi privat u ruajt ne fajllin " + keypath);
+
+                        StreamWriter sw1 = new StreamWriter(keypath1);
+                        string line1 = "";
+                        while ((line1 = sr.ReadLine()) != null)
+                        {
+                            sw1.Write(line);
+                        }
+                        sw1.Close();
+                        Console.WriteLine("Celesi publik u ruajt ne fajllin " + keypath1);
+                    }
+
+                }
+                else
+                {
+                    keypath = "keys/" + username + ".pub.xml";
+                    if (File.Exists(keypath))
+                    {
+                        Console.WriteLine("Gabim: Celesi " + username + " ekziston paraprakisht");
+                        return;
+                    }
+                    else
+                    {
+                        StreamReader sr = new StreamReader(filepath);
+                        StreamWriter sw = new StreamWriter(keypath);
+                        string line = "";
+                        while ((line = sr.ReadLine()) != null)
+                        {
+                            sw.Write(line);
+                        }
+                        sw.Close();
+                        Console.WriteLine("Celesi publik u ruajt ne fajllin " + keypath);
+                    }
+
+                }
+            }
+
+        }
+        public static bool DoesExists(string username)
+        {
+            string filePath = "keys/" + username + ".xml";
+            if (File.Exists(filePath))
+            {
+                return true;
+            }
+            else
+                return false;
+        }
+
+
+        
+
     }
 }
