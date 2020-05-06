@@ -1,11 +1,15 @@
 ﻿using System;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
+using System.Xml;
+
 
 namespace ds
 {
     class Program
     {
+        static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
         static void Main(string[] args)
         {
             if (args[0].Equals("frequency"))
@@ -57,6 +61,43 @@ namespace ds
                     string teksti = args[3];
 
                     bDecrypt(libri, teksti);
+                }
+            }
+            else if (args[0].Equals("create-user"))
+            {
+                string username = args[1];
+                Create(username);
+            }
+            else if (args[0].Equals("delete-user"))
+            {
+                string username = args[1];
+                Delete(username);
+            }
+            else if (args[0].Equals("export-key"))
+            {
+
+                string ispublic = args[1];
+                string username = args[2];
+                string filePath = "";
+                if (args.Length > 3)
+                {
+                    filePath = args[3];
+                }
+                ExportKey(ispublic, username, filePath);
+            }
+            else if (args[0].Equals("import-key"))
+            {
+
+                string username = args[1];
+                string filePath = args[2];
+                string xml = filePath.Substring(filePath.Length - 4);
+                if (xml.Equals(".xml"))
+                {
+                    ImportKey(username, filePath);
+                }
+                else
+                {
+                    Console.WriteLine("Celesi i dhene nuk eshte valid");
                 }
             }
         }
@@ -357,6 +398,54 @@ namespace ds
                 Console.Write(file[j]);
             }
 
+
+        }
+        public static void Create(string username)
+        {
+            if (!DoesExists(username))
+            {
+                string strXmlParameters = objRSA.ToXmlString(true);
+                string privateKey = "keys/" + username + ".xml";
+                StreamWriter sw = new StreamWriter(privateKey);
+                sw.Write(strXmlParameters);
+                sw.Close();
+                Console.WriteLine("Eshte krijuar celesi privat " + privateKey);
+
+                string strXmlParameters1 = objRSA.ToXmlString(false);
+                string publicKey = "keys/" + username + ".pub.xml";
+                StreamWriter sw1 = new StreamWriter(publicKey);
+                sw1.Write(strXmlParameters1);
+                sw1.Close();
+                Console.WriteLine("Eshte krijuar celesi publik " + publicKey);
+            }
+            else
+                Console.WriteLine("Gabim: Celesi " + username + " ekziston paraprakisht");
+        }
+        public static void Delete(string username)
+        {
+            string filePath = "keys/" + username + ".xml";
+            string filePath1 = "keys/" + username + ".pub.xml";
+            if (File.Exists(filePath) && File.Exists(filePath1))
+            {
+                File.Delete(filePath);
+                Console.WriteLine("Eshte larguar celesi privat " + filePath);
+                File.Delete(filePath1);
+                Console.WriteLine("Eshte larguar celesi publik " + filePath1);
+            }
+            else if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+                Console.WriteLine("Eshte larguar celesi privat " + filePath);
+            }
+            else if (File.Exists(filePath1))
+            {
+                File.Delete(filePath1);
+                Console.WriteLine("Eshte larguar celesi publik " + filePath1);
+            }
+            else
+            {
+                Console.WriteLine("Gabim: Celesi " + username + " nuk ekziston.");
+            }
 
         }
     }
