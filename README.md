@@ -86,3 +86,38 @@ Per kete komande jemi bazuar ne pjesen qe e kemi bere gjate ushtrimeve me profes
 3. Rezultatet e ekzekutimit me nga nje shembull per secilen komande dhe nenkomande.
 Screenshot-at jane te vendosur ne folderin rezultatet.
 
+Detyra 2.
+
+1.Udhezimet per ekzekutimin e programit:
+Per komanden Create perdorim sintaksen:	ds create-user <name>,
+Per komanden Delete perdorim sintaksen: ds delete-user <name>,
+Per komanden ExportKey perdorim sintaksen: ds export-key <public|private> <name> [file].
+Per komanden ImportKey perdorim sintaksen: ds import-key <name> <path>.
+Kemi edhe nenkomanden DoesExists e cila perdoret per te shikuar se a ekziston useri.
+
+2.Pershkrim i shkurter per secilen komande.
+
+Komanda Create:
+Tek kjo komand krijojm per secilin user nga 2 file user.xml dhe user.pub.xml 
+te cilet permbajn qelesin privat respektivisht qelesin publik te userit me RSA algoritem.
+Perndryshe nese useri ekziston atehere kthehet nje gabim.
+
+Komanda Delete:
+Kjo komand mundeson fshirjen e usereve. Varesisht se nese useri ka vetem qelesin privat ose publik ose te dy
+programi automatikisht fshin dhe tregon se cilet ka fshir, ne qofte se nuk ekziston ai user kthen mesazh
+gabimi.
+
+Komanda ExportKey:
+Kjo komand merr qeles privat ose publik te ndonje useri qe e kerkojm dhe e vendos ne nje file tjeter
+varesisht se cilin qeles e kemi kerkuar. Ne qofte se useri nuk ekziston programi automatikisht 
+e detekton mungesen e tij dhe lajmron se nuk mun te behet.
+
+Komanda ImportKey:
+Kjo komand e merr qelesin nga nje file dhe automatikisht e gjen se a eshte qeles privat apo publik.
+Ne qofte se eshte qeles privat aj krijon edhe qelesin privat edhe publik per ate user kurse nese
+eshte publik ruan vetem qelesin publik.
+
+
+3. Rezultatet e ekzekutimit me nga nje shembull per secilen komande dhe nenkomande.
+
+Screenshot-at jane te vendosur ne folderin rezultatet.
