@@ -2,6 +2,7 @@
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 
@@ -12,6 +13,8 @@ namespace ds
         static RSACryptoServiceProvider objRSA = new RSACryptoServiceProvider();
         static void Main(string[] args)
         {
+            DeleteUser D = new DeleteUser();
+            CreateUser C = new CreateUser();
             if (args[0].Equals("frequency"))
             {
                 string plaintexti = args[1];
@@ -45,6 +48,10 @@ namespace ds
                     GenerateKey(keyword);
                     ShowKey();
                 }
+                else
+                {
+                    Console.WriteLine("Gabim");
+                }
             }
             else if (args[0].Equals("beale"))
             {
@@ -65,14 +72,78 @@ namespace ds
             }
             else if (args[0].Equals("create-user"))
             {
-                string username = args[1];
-                Create(username);
+                string text = args[1];
+                if (Regex.IsMatch(text, "^[A-Za-z0-9_.]+$"))
+                {
+                    //FilePath
+                    string privateKeyfilePath = "keys/" + text + ".xml";
+                    string publicKeyfilePath = "keys/" + text + ".pub.xml";
+
+                    //Check nese egziston ndonje file me ate emer ne direktorin keys
+                    bool privateKeyExist = File.Exists(privateKeyfilePath);
+                    bool publicKeyExist = File.Exists(publicKeyfilePath);
+
+                    if (!(privateKeyExist || publicKeyExist))
+                    {
+                        C.InsertIntoDB(text);
+                        //Perdorimi i funksionit GenerateRsaKey per te krijuar qelesat privat dhe public me madhesi 1024(sipas deshires)
+                        C.GenerateRsaKey(privateKeyfilePath, publicKeyfilePath, 1024);
+                        //Trego qe u krijuan qelsat
+                        Console.WriteLine("Eshte krijuar celesi privat " + "'keys/" + args[1] + ".xml'");
+                        Console.WriteLine("Eshte krijuar celesi public " + "'keys/" + args[1] + ".pub.xml'");
+                    }
+                    else
+                    {
+                        Console.WriteLine("File me ate emer egziston ne folderin keys, provo tjeter emer!");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Username duhet te permbaj vetem shkronja, numra dhe _ dhe .");
+                    Environment.Exit(1);
+                }
             }
             else if (args[0].Equals("delete-user"))
             {
                 string username = args[1];
-                Delete(username);
-            }
+                if (Regex.IsMatch(username, "^[A-Za-z0-9_.]+$"))
+                {
+                    //FilePath
+                    string filePath = "keys/" + username + ".xml";
+                    string filePath1 = "keys/" + username + ".pub.xml";
+
+                    //Check nese egziston ndonje file me ate emer ne direktorin keys
+                    bool privateKeyExist = File.Exists(filePath);
+                    bool publicKeyExist = File.Exists(filePath1);
+
+                    if ((privateKeyExist && publicKeyExist))
+                    {
+                        //Perdorimi i funksionit DeleteRsaKey per te fshire qelesat privat dhe public me madhesi 1024(sipas deshires)
+                        D.DeletefromDB(username);
+                        D.DeleteRsaKey(filePath, filePath1);
+
+                        //Trego qe u fshin qelsat
+                        Console.WriteLine("Eshte larguar celesi privat " + "'keys/" + username + ".xml'");
+                        Console.WriteLine("Eshte larguar celesi publik " + "'keys/" + username + ".pub.xml'");
+                    }
+                    else if (publicKeyExist)
+                    {
+                        D.DeletefromDB(username);
+                        D.DeleteRsaKey(filePath1);
+                        Console.WriteLine("Eshte larguar celesi publik " + "'keys/" + username + ".pub.xml'");
+                    }
+                    else if (privateKeyExist)
+                    {
+                        D.DeletefromDB(username);
+                        D.DeleteRsaKey(filePath);
+                        Console.WriteLine("Eshte larguar celesi privat " + "'keys/" + username + ".xml'");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Celesi '" + username + "' nuk ekziston.");
+                    }
+                }
+                }
             else if (args[0].Equals("export-key"))
             {
 
@@ -99,6 +170,10 @@ namespace ds
                 {
                     Console.WriteLine("Celesi i dhene nuk eshte valid");
                 }
+            }
+            else
+            {
+                Console.WriteLine("Komanda e dhene nuk ekziston");
             }
         }
 
