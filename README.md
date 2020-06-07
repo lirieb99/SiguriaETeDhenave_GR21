@@ -121,3 +121,7 @@ eshte publik ruan vetem qelesin publik.
 3. Rezultatet e ekzekutimit me nga nje shembull per secilen komande dhe nenkomande.
 
 Screenshot-at jane te vendosur ne folderin rezultatet.
+
+
+
+
