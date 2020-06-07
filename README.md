@@ -124,4 +124,17 @@ Screenshot-at jane te vendosur ne folderin rezultatet.
 
 
 
+Pjesa e 3.
+Pershkrimi i shkurter per secilen komande:
+Komanda Create-user:
+Kemi krijuar komandën create-user ashtu qe  gjate krijimit të shfrytëzuesit të kërkohet edhe
+fjalëkalimi.
+Kemi bere qe Fjalëkalimi duhet të kërkohet përmes inputit. Permes disa metodave kemi bere qe Fjalëkalimi
+të ketë gjatësinë e së paku 6 karaktere dhe të përmbajë së paku një numër ose simbol.
+Kur krijohet shfrytezuesi e ruajme ne bazen e shenimeve.Fjalekalimi i shfrytezuesit ruhet ne forme te sigurte permes saltit dhe hashalgoritmit.
+Ne ekran na shfaqet mesazhhi qe eshte krijuar shfrytezuesi.
+
+Komanda delete-user
+
+Kur thirret komanda delete-user fshihen te gjitha te dhenat nga baza e shenimeve dhe ne ne ekran na shfaqet mesazhi qe shfrytezuesi eshte larguar.
 
