@@ -39,22 +39,6 @@ namespace ds
             }
         }
 
-        public DataSet DataSet(string sql)
-        {
-            DataSet DS = new DataSet();
-            var SqlCommnad = new SqlCommand(sql, conn);
-            var DA = new SqlDataAdapter(SqlCommnad);
-            try
-            {
-                DA.Fill(DS);
-                return DS;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public bool Close()
         {
             try
