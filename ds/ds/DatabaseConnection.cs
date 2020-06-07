@@ -9,6 +9,7 @@ namespace ds
         SqlConnection conn;
         private static string strProvider = "Data Source=DESKTOP-3KKS0C2\\SQLEXPRESS;Initial Catalog = DB; Integrated Security = True";
 
+
         public bool Open()
         {
             try
